@@ -45,12 +45,13 @@
         </section>
         <section>
             <article>
-                <div class="todo-header">
+                <form class="todo-form">
                     <h2 name="input-todo">Add your to do here</h2>
-                    <input type="text" id="todo-item" value="">
-                    <button onclick="toDoCreate()">Create</button>
-                </div>
-                <ul id="todo-list"></ul>
+                    <input type="text" class="todo-item-input">
+                    <button onclick="renderToDoCreate()">Add</button>
+                </form>
+
+                <ul class="todo-list"></ul>
             </article>
         </section>
         <section>

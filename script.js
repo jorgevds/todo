@@ -1,20 +1,46 @@
-const container = document.getElementById("todo-list");
-let toDo = [];
+let toDoItems = [];
 
-function toDoCreate() {
-  // variable declaration
-  let li = document.createElement("li");
-  let inputValue = document.getElementById("todo-item").value;
-  let inputText = document.createTextNode(inputValue);
-  let toDoList = document.getElementById("todo-list");
+function renderToDoCreate(toDo) {
+  const list = document.querySelector(".todo-list");
 
-  // check for errors
-  if (inputValue == null || inputValue == "") {
-    alert("Please enter something to do");
-  } else {
-    // add to list, clear input
-    li.appendChild(inputText);
-    toDoList.appendChild(li);
-    document.getElementById("todo-item").value = "";
-  }
+  const isChecked = toDo.checked ? "done" : "";
+  const node = document.createElement("li");
+  node.setAttribute("class", `todo-item ${isChecked}`);
+  node.setAttribute("data-key", toDo.id);
+  node.innerHTML = `
+  <input id="${toDo.id}" type="checkbox"/>
+  <label for="${toDo.id}" class="tick js-tick"></label>
+  <span>${toDo.text}</span>
+  <button class="delete-todo js-delete-todo">
+  </button>
+`;
+
+  list.append(node);
 }
+
+function toDoCreate(text) {
+  const toDo = {
+    text,
+    checked: false,
+    id: Date.now(),
+  };
+
+  toDoItems.push(toDo);
+
+  console.log(toDo);
+  renderToDoCreate(toDo);
+}
+
+const form = document.querySelector(".todo-form");
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const input = document.querySelector(".todo-item-input");
+  const text = input.value.trim();
+  if (text !== "") {
+    toDoCreate(text);
+    input.value = "";
+    input.focus();
+  }
+});
+
+function toDoDelete() {}
